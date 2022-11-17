@@ -6,8 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Run unit tests and SAST scan on the source code 
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Setup node
+      uses: actions/setup-node@v3
       with:
         node-version: 16
         cache: npm
@@ -26,7 +28,8 @@ jobs:
     needs: build
     name: Run the SCA scan on the source code
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@master
       - name: RunSnyk to check for vulnerabilities
         uses: snyk/actions/node@master
         continue-on-error: true
